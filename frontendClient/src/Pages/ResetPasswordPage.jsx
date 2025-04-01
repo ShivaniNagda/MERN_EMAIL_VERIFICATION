@@ -10,29 +10,23 @@ const ResetPasswordPage = () => {
     const [password,setPassword] = useState("");
     const [confirmPassword,setConfirmPassword] = useState("");
     const {resetPassword,error,isLoading,message}= userAuthStore();
-    
-    console.log("ResetPasswordPage rendered",resetPassword,error,isLoading,message);
     const {token} = useParams();
     const navigate = useNavigate();
-    console.log("Token from URL:",token);
 
 
    const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted",password,confirmPassword); 
     if(password !== confirmPassword){
         alert("Passwords do not match");
         return;
     }
     try {
        const resetsubmitfrontend= await resetPassword(token,password);
-       console.log("resetsubmitfrontend ",resetsubmitfrontend);
         toast.success("Password reset successfully. You can now log in with your new password.");
         setTimeout(() => {
         navigate("/login");
         }, 2000);
     } catch (error) {
-        console.error("Error resetting password:", error);
         toast.error(error.message || "Failed to reset password. Please try again.");
     }
     };
