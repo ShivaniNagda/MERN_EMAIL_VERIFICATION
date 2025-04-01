@@ -18,7 +18,6 @@ const SignUpPage = () => {
     const handleSignUp = async(e) =>{
         e.preventDefault();
         try{
-          console.log("SignUp data:",username,email,password);
           await signup(email,password,username);
           navigate("/verify-email");
         }catch(error){
